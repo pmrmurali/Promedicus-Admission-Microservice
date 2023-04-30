@@ -4,6 +4,7 @@ import java.util.Objects;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import com.promed.admission.exception.AdmissionNotFoundException;
 import com.promed.admission.model.AdmissionModel;
@@ -34,11 +35,13 @@ public class AdmissionService {
 		return admissionRepository.findById(id).switchIfEmpty(Mono.error(new AdmissionNotFoundException("No admission by ID: " + id)));
 	}
 
+	@Transactional
 	public Mono<AdmissionModel> createAdmission(final AdmissionModel admission) {
 		return admissionRepository.insert(admission);
 
 	}
 
+	@Transactional
 	public Mono<AdmissionModel> updateAdmission(AdmissionModel admission,String id) {
 		
 		return admissionRepository.findById(id).switchIfEmpty(Mono.error(new AdmissionNotFoundException("admission not found for update, ID: " + id))).filter(Objects::nonNull)

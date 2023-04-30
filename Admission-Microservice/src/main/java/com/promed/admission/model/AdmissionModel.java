@@ -4,6 +4,8 @@ import java.io.Serializable;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
 
+import org.hibernate.validator.constraints.Length;
+import org.hibernate.validator.constraints.NotBlank;
 import org.springframework.data.annotation.CreatedDate;
 import org.springframework.data.annotation.Id;
 import org.springframework.data.annotation.LastModifiedDate;
@@ -16,6 +18,7 @@ import com.promed.admission.valid.constraint.ValidCategory;
 import com.promed.admission.valid.constraint.ValidGender;
 
 import jakarta.validation.constraints.NotEmpty;
+import jakarta.validation.constraints.NotNull;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
@@ -43,6 +46,9 @@ public class AdmissionModel implements Serializable {
 	private String name;
 	@Field(name = "birthDate")
 
+	
+
+	@NotNull(message = "BirthDate must not be empty")
 	@ValidBirthDate
 	@DateTimeFormat(pattern = "yyyy-MM-dd")
 	private LocalDate birthDate;
